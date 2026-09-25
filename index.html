@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#171915" />
+  <title>SMART HUB API | Test case generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="SMART HUB API home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>SMART HUB API</span>
+      </a>
+      <div class="topbar-meta">
+        <span class="status-dot"></span>
+        <span>local workspace</span>
+        <button class="icon-button" id="themeButton" type="button" aria-label="Toggle contrast theme" title="Toggle contrast theme">◐</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-view setup-view" id="setupView">
+        <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">SMART HUB API / test studio</p>
+          <h1>Turn an API into a <em>test plan.</em></h1>
+          <p class="hero-description">Bring an endpoint, Swagger URL, or JSON contract. SMART HUB API maps the edges and writes a suite your team can run.</p>
+        </div>
+        <div class="hero-stamp" aria-label="Test coverage target">
+          <span>coverage</span>
+          <strong>∞</strong>
+          <span>edge cases</span>
+        </div>
+        </section>
+
+        <section class="source-section" aria-labelledby="sourceHeading">
+          <div class="source-heading">
+            <div><p class="section-kicker">01 / choose a source</p><h2 id="sourceHeading">Start from your API contract</h2></div>
+            <span class="source-note">local reader</span>
+          </div>
+          <div class="source-grid">
+            <div class="source-card">
+              <span class="source-icon" aria-hidden="true">▤</span>
+              <div><h3>Swagger UI</h3><p>Load an OpenAPI or Swagger URL into the generator.</p></div>
+              <div class="source-control"><input id="swaggerUrl" type="url" placeholder="https://api.example.com/openapi.json" aria-label="Swagger or OpenAPI URL" /><button class="secondary-button" id="swaggerButton" type="button">Use URL</button></div>
+            </div>
+            <div class="source-card">
+              <span class="source-icon" aria-hidden="true">{ }</span>
+              <div><h3>JSON reader</h3><p>Read a local OpenAPI JSON file without leaving your browser.</p></div>
+              <label class="file-button"><input id="jsonFile" type="file" accept="application/json,.json" />Choose JSON</label>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace-grid">
+        <aside class="builder-panel panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">02 / configure</p>
+              <h2>Endpoint details</h2>
+            </div>
+            <span class="step-count">1 of 2</span>
+          </div>
+
+          <form id="generatorForm">
+            <label class="field-label" for="method">Request</label>
+            <div class="request-line">
+              <select id="method" name="method" aria-label="HTTP method">
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+              </select>
+              <input id="endpoint" name="endpoint" type="url" value="https://api.acme.dev/v1/orders/{orderId}" placeholder="https://api.example.com/resource" required />
+            </div>
+
+            <label class="field-label" for="description">What does it do?</label>
+            <textarea id="description" name="description" rows="3" placeholder="e.g. Returns a single order with its latest payment status">Returns a single order with its latest payment status</textarea>
+
+            <div class="field-row">
+              <div>
+                <label class="field-label" for="auth">Authentication</label>
+                <select id="auth" name="auth" class="full-select">
+                  <option value="Bearer token">Bearer token</option>
+                  <option value="API key">API key</option>
+                  <option value="Basic auth">Basic auth</option>
+                  <option value="None">None</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for="response">Expected response</label>
+                <select id="response" name="response" class="full-select">
+                  <option value="200 OK">200 OK</option>
+                  <option value="201 Created">201 Created</option>
+                  <option value="204 No Content">204 No Content</option>
+                  <option value="202 Accepted">202 Accepted</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-group">
+              <label class="toggle-row">
+                <span><strong>Boundary values</strong><small>Empty, huge, malformed inputs</small></span>
+                <input type="checkbox" name="boundary" checked /><span class="toggle-ui"></span>
+              </label>
+              <label class="toggle-row">
+                <span><strong>Security checks</strong><small>Auth, permissions, injection</small></span>
+                <input type="checkbox" name="security" checked /><span class="toggle-ui"></span>
+              </label>
+              <label class="toggle-row">
+                <span><strong>Performance notes</strong><small>Timeout and rate-limit cases</small></span>
+                <input type="checkbox" name="performance" checked /><span class="toggle-ui"></span>
+              </label>
+            </div>
+
+            <button class="primary-button" type="submit">
+              <span>Generate API test cases</span>
+              <span class="button-arrow">↗</span>
+            </button>
+          </form>
+          <p class="privacy-note"><span aria-hidden="true">⌁</span> Nothing leaves your browser</p>
+        </aside>
+        </section>
+      </section>
+
+      <section class="page-view results-view" id="resultsView" hidden>
+        <div class="results-topline"><button class="back-button" id="backButton" type="button">← Back to setup</button><span class="section-kicker">02 / generated suite</span></div>
+        <section class="results-panel">
+          <div class="results-header">
+            <div>
+              <p class="section-kicker">SMART HUB API / your suite</p>
+              <h2>All endpoints and test cases <span id="caseCount">12</span></h2>
+            </div>
+            <div class="result-actions">
+              <button class="secondary-button" id="copyButton" type="button" title="Copy cases to clipboard">Copy all</button>
+              <button class="secondary-button" id="downloadButton" type="button" title="Download cases as JSON">↓ JSON</button>
+            </div>
+          </div>
+
+          <div class="coverage-bar" aria-label="Test coverage summary">
+            <div class="coverage-segment happy" style="width: 25%"></div>
+            <div class="coverage-segment validation" style="width: 33%"></div>
+            <div class="coverage-segment auth" style="width: 25%"></div>
+            <div class="coverage-segment performance" style="width: 17%"></div>
+          </div>
+          <div class="legend">
+            <span><i class="legend-dot happy"></i>Happy path</span>
+            <span><i class="legend-dot validation"></i>Validation</span>
+            <span><i class="legend-dot auth"></i>Auth &amp; access</span>
+            <span><i class="legend-dot performance"></i>Resilience</span>
+          </div>
+
+          <div class="case-toolbar">
+            <div class="filter-tabs" role="tablist" aria-label="Filter test cases">
+              <button class="filter-tab active" type="button" data-filter="all">All <span>12</span></button>
+              <button class="filter-tab" type="button" data-filter="happy">Happy path <span>3</span></button>
+              <button class="filter-tab" type="button" data-filter="validation">Validation <span>4</span></button>
+              <button class="filter-tab" type="button" data-filter="auth">Access <span>3</span></button>
+              <button class="filter-tab" type="button" data-filter="performance">Resilience <span>2</span></button>
+            </div>
+            <label class="search-box" aria-label="Search test cases"><span>⌕</span><input id="searchCases" type="search" placeholder="Find a case" /></label>
+          </div>
+
+          <div class="cases-list" id="casesList" aria-live="polite"></div>
+          <div class="empty-state" id="emptyState" hidden>No cases match that filter.</div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer"><span>SMART HUB API / TEST STUDIO</span><span>Built for the curious QA mind <span class="footer-symbol">✦</span></span></footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
